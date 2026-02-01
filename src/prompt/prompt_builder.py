@@ -10,6 +10,16 @@ from prompt.prompt import Prompt
 
 
 class PromptBuilder():
+    """
+    Prompt オブジェクトを段階的に組み立てるためのビルダー。
+
+    各メソッドは特定の PromptComponent を追加し、
+    メソッドチェーンにより宣言的にプロンプト構造を記述できる。
+
+    ビルダーは順序を保持するが、最終的な表示順序は
+    Prompt 側で priority によって制御される。
+    """
+
     def __init__(self):
         self._components: list[PromptComponent] = []
 
