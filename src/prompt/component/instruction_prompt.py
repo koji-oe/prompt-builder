@@ -1,8 +1,8 @@
-from prompt_component import PromptComponent
+from prompt.component.prompt_component import PromptComponent
 from typing import override
 
 
-class Instruction(PromptComponent):
+class InstructionPrompt(PromptComponent):
     def __init__(self, instruction: str):
         self.instruction = instruction
 

@@ -1,4 +1,4 @@
-from prompt_component import PromptComponent
+from prompt.component.prompt_component import PromptComponent
 from typing import override
 
 
