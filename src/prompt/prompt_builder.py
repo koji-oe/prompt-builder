@@ -1,4 +1,6 @@
+from prompt.component.code_context_prompt import CodeContextPrompt
 from prompt.component.output_format_prompt import OutputFormatPrompt
+from prompt.component.prohibited_prompt import ProhibitedPrompt
 from prompt.component.prompt_component import PromptComponent
 from prompt.component.system_prompt import SystemPrompt
 from prompt.component.instruction_prompt import InstructionPrompt
@@ -29,6 +31,14 @@ class PromptBuilder():
 
     def output_format(self, format: str) -> "PromptBuilder":
         self._components.append(OutputFormatPrompt(format))
+        return self
+
+    def prohibit(self, items: list[str]) -> "PromptBuilder":
+        self._components.append(ProhibitedPrompt(items))
+        return self
+
+    def code(self, path: str, code: str) -> "PromptBuilder":
+        self._components.append(CodeContextPrompt(path, code))
         return self
 
     def build(self) -> Prompt:
