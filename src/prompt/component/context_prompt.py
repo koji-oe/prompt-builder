@@ -1,8 +1,12 @@
 from prompt.component.prompt_component import PromptComponent
 from typing import override
 
+from prompt.prompt_priority import PromptPriority
+
 
 class ContextPrompt(PromptComponent):
+    priority = PromptPriority.CONTEXT
+
     def __init__(self, context: str):
         self.context = context
 
