@@ -1,7 +1,7 @@
 from prompt.prompt_builder import PromptBuilder
 
 
-def test_one():
+def test_ベーシックな例():
     prompt = (
         PromptBuilder()
         .system("熟練したJavaアーキテクト")
@@ -15,3 +15,30 @@ def test_one():
     )
 
     print(prompt.render())
+
+
+def test_条件付きコンポーネント追加():
+    include_prohibited = True
+
+    prompt = (
+        PromptBuilder()
+        .system("優秀なPython開発者")
+        .instruction("コードレビューを行ってください")
+        .when(
+            include_prohibited,
+            lambda builder: builder.prohibit([
+                "グローバル変数の使用",
+                "コメントのないコード",
+            ])
+        )
+        .build()
+    )
+
+    rendered = prompt.render()
+    print(rendered)
+    if include_prohibited:
+        assert "グローバル変数の使用" in rendered
+        assert "コメントのないコード" in rendered
+    else:
+        assert "グローバル変数の使用" not in rendered
+        assert "コメントのないコード" not in rendered
