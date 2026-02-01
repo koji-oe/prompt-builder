@@ -1,3 +1,4 @@
+from prompt.component.output_format_prompt import OutputFormatPrompt
 from prompt.component.prompt_component import PromptComponent
 from prompt.component.system_prompt import SystemPrompt
 from prompt.component.instruction_prompt import InstructionPrompt
@@ -24,6 +25,10 @@ class PromptBuilder():
 
     def constraints(self, constraints: list[str]) -> "PromptBuilder":
         self._components.append(ConstraintPrompt(constraints))
+        return self
+
+    def output_format(self, format: str) -> "PromptBuilder":
+        self._components.append(OutputFormatPrompt(format))
         return self
 
     def build(self) -> Prompt:
