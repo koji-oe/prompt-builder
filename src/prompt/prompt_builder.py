@@ -7,6 +7,7 @@ from prompt.component.system_prompt import SystemPrompt
 from prompt.component.instruction_prompt import InstructionPrompt
 from prompt.component.context_prompt import ContextPrompt
 from prompt.component.constraint_prompt import ConstraintPrompt
+from prompt.component.task_prompt import TaskPrompt
 from prompt.prompt import Prompt
 
 
@@ -136,6 +137,22 @@ class PromptBuilder():
             自身（メソッドチェーン用）
         """
         self._components.append(CodeContextPrompt(path, code))
+        return self
+
+    def task(self, title: str, action: Callable[["TaskPrompt"], None]) -> "PromptBuilder":
+        """
+        タスク手順全体を表す TaskPrompt を追加する。
+
+        Args:
+            title: タスク手順のタイトル
+            action: TaskPrompt に対する操作を行うコールバック関数
+
+        Returns:
+            自身（メソッドチェーン用）
+        """
+        task_prompt = TaskPrompt(title)
+        action(task_prompt)
+        self._components.append(task_prompt)
         return self
 
     def when(self, condition: bool, action: Callable[["PromptBuilder"], None]) -> "PromptBuilder":

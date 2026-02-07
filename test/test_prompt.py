@@ -1,3 +1,5 @@
+from prompt.component.task_prompt import TaskPrompt
+from prompt.component.task_step_prompt import TaskStepPrompt
 from prompt.prompt_builder import PromptBuilder
 
 
@@ -42,3 +44,22 @@ def test_条件付きコンポーネント追加():
     else:
         assert "グローバル変数の使用" not in rendered
         assert "コメントのないコード" not in rendered
+
+
+def test_階層構造コンポーネント():
+    prompt = (
+        PromptBuilder()
+        .task("作業手順", lambda t: (
+            t.add(TaskStepPrompt("現状把握")
+                  .add(TaskStepPrompt("コード構成を整理する"))
+                  .add(TaskStepPrompt("技術的負債を洗い出す"))
+                  ),
+            t.add(TaskStepPrompt("改善案検討")
+                  .add(TaskStepPrompt("モジュール分割案を出す"))
+                  .add(TaskStepPrompt("移行ステップを整理する"))
+                  ),
+        ))
+        .build()
+    )
+
+    print(prompt.render())

@@ -11,8 +11,10 @@ class PromptPriority(IntEnum):
     プロンプトとしての意味的な構造を表現するためのもの。
     """
 
+    COMPOSITE = -1000
     SYSTEM = 100
     INSTRUCTION = 200
+    TASK = 250
     CONTEXT = 300
     CODE_CONTEXT = 400
     CONSTRAINT = 500
