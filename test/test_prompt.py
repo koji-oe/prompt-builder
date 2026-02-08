@@ -51,7 +51,10 @@ def test_階層構造コンポーネント():
         PromptBuilder()
         .task("作業手順", lambda t: (
             t.add(TaskStepPrompt("現状把握")
-                  .add(TaskStepPrompt("コード構成を整理する"))
+                  .add(TaskStepPrompt("コード構成を整理する")
+                       .add(TaskStepPrompt("Job / Step 一覧を抽出する"))
+                       .add(TaskStepPrompt("依存関係を図に起こす"))
+                       )
                   .add(TaskStepPrompt("技術的負債を洗い出す"))
                   ),
             t.add(TaskStepPrompt("改善案検討")
