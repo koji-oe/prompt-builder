@@ -19,5 +19,5 @@ class TaskPrompt(CompositePromptComponent):
     def render(self) -> str:
         lines = [f"## {self.title}"]
         for i, child in enumerate(self.children, start=1):
-            lines.append(child.render(depth=1, index=i))
-        return "\n".join(lines)
+            lines.append(child.render(depth=1, number_path=[i]))
+        return "\n\n".join(lines)
